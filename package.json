@@ -1,0 +1,16 @@
+{
+  "name": "electron-photo-sorter",
+  "productName": "Photo Sorter",
+  "version": "1.0.0",
+  "description": "App to sort photos based on their date",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Joey ter Meulen",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.6"
+  }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/renderer.js" defer></script>
+    <title>Photo Sorter</title>
+  </head>
+  <body>
+    <p>Sort your photos here!</p>
+    
+    <!-- https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker -->
+    <!-- TODO: use button to openDirPicker -->
+    <!-- SVG of folder logo as button that should open dirPicker -->
+
+    <!-- Input to insert start date DD-MM-YYYY -->
+
+    <button class="button">Sort!</button>
+  </body>
+</html>
