@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Menu } from "electron";
 
 const isDev = process.env.NODE_ENV !== "production";
 const isMac = process.platform === "darwin";
@@ -18,8 +18,21 @@ const createMainWindow = () => {
   mainWindow.loadFile("./renderer/index.html");
 };
 
+const createAboutWindow = () => {
+  const mainWindow = new BrowserWindow({
+    title: "About - Photo Sorter",
+    width: 420,
+    height: 280,
+  });
+
+  mainWindow.loadFile("./renderer/about.html");
+};
+
 app.whenReady().then(() => {
   createMainWindow();
+
+  const mainMenu = Menu.buildFromTemplate(menu);
+  Menu.setApplicationMenu(mainMenu);
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -33,3 +46,24 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
+
+// Creating menu
+const menu = [
+  ...(isMac
+    ? [
+        {
+          label: app.name,
+          submenu: [{ label: "About", click: () => createAboutWindow() }],
+        },
+      ]
+    : []),
+  { role: "fileMenu" },
+  ...(!isMac
+    ? [
+        {
+          label: "Help",
+          submenu: [{ label: "About", click: () => createAboutWindow() }],
+        },
+      ]
+    : []),
+];

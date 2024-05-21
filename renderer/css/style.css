@@ -14,7 +14,7 @@
 
     --border-color:  #f4f4f4;
 
-    --input-background-focus: #e4e4e47b;
+    --input-background-focus: #e4e4e442;
     --input-placeholder: #d4d4d49d;
 }
 
@@ -44,7 +44,7 @@ body {
 button, input {
     background: none;
     border: none;
-
+    font-family: inherit;
     font-size: 18px;
 }
 
@@ -72,10 +72,11 @@ button, input {
 
 .input {
     border-bottom: 1px solid var(--border-color);
-    padding: 8px 8px 8px 36px;
+    padding: 4px 4px 4px 36px;
     color: var(--font-color);
-    border-radius: 8px;
     width: 100%;
+    outline: none;
+    margin-top: 4px;
 }
 
 .input::placeholder {
