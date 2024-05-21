@@ -5,6 +5,11 @@ const folderOutputPathText = document.getElementById("folder-output-path-text");
 const startDateInp = document.getElementById("start-date-input");
 const sortBtn = document.getElementById("sort-button");
 
+const IMAGE_FILE_EXTENSIONS = "jpg,jpeg,png,heic,heif";
+
+let folderPath;
+let folderOutputPath;
+
 selectFolderBtn.addEventListener("click", async () => {
   // https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker
 
@@ -16,20 +21,61 @@ selectFolderBtn.addEventListener("click", async () => {
   //     return;
   //   }
 
-
-  const outputPath = path.join(os.homedir(), "sorted-images");
+  folderOutputPath = path.join(os.homedir(), "sorted-images");
 
   formContainer.style.visibility = "visible";
 
   folderPathText.innerText = "hello";
-  folderOutputPathText.innerText = outputPath;
+  folderOutputPathText.innerText = folderOutputPath;
 });
 
-sortBtn.addEventListener("click", async () => { 
-    // https://github.com/JtMeulen/image_sort/blob/main/index.js
+sortBtn.addEventListener("click", async () => {
+  sortBtn.disabled = true;
 
-    // TODO: check for input in startDateInp
-    // if input is incorrect, throw error
+  const images = [];
+  let startDate;
 
-    // start sorting
+  // https://github.com/JtMeulen/image_sort/blob/main/index.js
+
+  // Get the start date if set in the input field
+  if (startDateInp.value) {
+    // Check if the date is valid, or else throw error
+    if (new Date(startDateInp.value) !== "Invalid Date") {
+      // TODO: throw error
+      // TODO: empty input field?
+    } else {
+      startDate = new Date(startDateInp.value);
+    }
+  }
+
+  // TODO: Temp for testing!
+  folderPath = path.join(os.homedir(), "/Documents/uganda");
+
+  const files = await glob.find(
+    `${folderPath}/**/*.{${IMAGE_FILE_EXTENSIONS}}`
+  );
+
+  console.log(files);
+  // start sorting
+
+  console.log("Extracting image dates..");
+  for (const file of files) {
+    const tags = await ExifReader.load(file);
+    console.log("read file: " + file);
+    const imageDateRaw = tags["DateTimeOriginal"].description;
+
+    // Convert YYYY:MM:DD to YYYY-MM-DD for JS Date compatibility
+    const imageDate = imageDateRaw.replace(
+      /(\d{4}):(\d{2}):(\d{2})/,
+      "$1-$2-$3"
+    );
+
+    images.push({ file, date: imageDate });
+  }
+
+  // Sort the array oldest to newest
+  console.log("Sorting images from oldest to newest..");
+  images.sort((a, b) => {
+    return new Date(a.date) - new Date(b.date);
+  });
 });
