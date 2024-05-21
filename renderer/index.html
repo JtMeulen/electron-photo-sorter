@@ -12,18 +12,35 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/renderer.js" defer></script>
     <title>Photo Sorter</title>
   </head>
   <body>
     <p>Sort your photos here!</p>
-    
+
     <!-- https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker -->
     <!-- TODO: use button to openDirPicker -->
     <!-- SVG of folder logo as button that should open dirPicker -->
+    <button class="svg-button">
+      <img src="images/folder.svg" alt="Select folder" />
+    </button>
 
     <!-- Input to insert start date DD-MM-YYYY -->
+    <div class="input-wrapper">
+      <label for="startDate">Start Date (optional):</label>
+      <img src="images/calendar.svg" alt="" />
+      <input
+        type="text"
+        id="startDate"
+        placeholder="DD-MM-YYYY"
+        class="input"
+      />
+    </div>
 
     <button class="button">Sort!</button>
   </body>

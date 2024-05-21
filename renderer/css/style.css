@@ -1,43 +1,101 @@
 :root {
+    --color-primary: #3f0f2b;
+    --color-secondary: #241731;
+    --color-tertiary: #022335;
+
     --font-color: #fff;
 
     --button-color: #f4f4f4;
     --button-color-hover: #e4e4e4;
     --button-color-active: #d4d4d4;
     --button-color-disabled: #666;
-    --button-color-text: #333;
+    --button-color-text: var(--color-primary);
     --button-color-text-disabled: #fff;
+
+    --border-color:  #f4f4f4;
+
+    --input-background-focus: #e4e4e47b;
+    --input-placeholder: #d4d4d49d;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
-    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
     height: 100vh;
     margin: 0;
     padding: 24px;
-    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    background-color: #3f0f2b;
-    background-image: linear-gradient(225deg, #3f0f2b 0%, #241731 50%, #022335 100%);
+    background-color: var(--color-primary);
+    background-image: linear-gradient(225deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-tertiary) 100%);
 
     background-repeat: no-repeat;
     background-size: cover;
     color: var(--font-color);
 }
 
+/* Reset styles */
+button, input {
+    background: none;
+    border: none;
+
+    font-size: 18px;
+}
+
+.svg-button {
+    margin-bottom: 18px;
+}
+
+.svg-button img {
+    width: 40px;
+    cursor: pointer;
+}
+
+.input-wrapper {
+    position: relative;
+    width: clamp(100px, 50%, 340px);
+    margin-bottom: 18px;
+}
+
+.input-wrapper img {
+    position: absolute;
+    left: 8px;
+    bottom: 10px;
+    width: 20px;
+}
+
+.input {
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px 8px 8px 36px;
+    color: var(--font-color);
+    border-radius: 8px;
+    width: 100%;
+}
+
+.input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.input:focus {
+    background: var(--input-background-focus);
+}
+
 .button {
     display: block;
-    padding: 10px 20px;
-    margin: 10px;
+    padding: 12px 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: var(--button-color);
     color: var(--button-color-text);
     cursor: pointer;
     width: clamp(100px, 50%, 340px);
+    margin-bottom: 18px;
 }
 
 .button:hover {
