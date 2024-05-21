@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "App to sort photos based on their date",
   "main": "main.js",
-  "type": "module",
   "scripts": {
     "start": "electron ."
   },

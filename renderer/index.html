@@ -22,25 +22,34 @@
   <body>
     <h1>Sort your photos here!</h1>
 
-    <!-- https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker -->
-    <!-- TODO: use button to openDirPicker -->
-    <!-- SVG of folder logo as button that should open dirPicker -->
-    <button class="svg-button">
+    <button class="svg-button" id="select-folder-button">
       <img src="images/folder.svg" alt="Select folder" />
     </button>
 
-    <!-- Input to insert start date DD-MM-YYYY -->
-    <div class="input-wrapper">
-      <label for="startDate">Start Date (optional):</label>
-      <img src="images/calendar.svg" alt="" />
-      <input
-        type="text"
-        id="startDate"
-        placeholder="DD-MM-YYYY"
-        class="input"
-      />
-    </div>
+    <!-- Details for sorting, only show when folder is selected -->
+    <div style="visibility: hidden;" id="form-container">
+      <span>Sort photos for:</span>
+      <br />
+      <em id="folder-path-text"></em>
 
-    <button class="button">Sort!</button>
+      <div class="input-wrapper">
+        <label for="startDate">Start Date (optional):</label>
+        <img src="images/calendar.svg" alt="" />
+        <!-- Input to insert start date DD-MM-YYYY -->
+        <input
+          type="text"
+          id="start-date-input"
+          placeholder="DD-MM-YYYY"
+          class="input"
+          maxlength="10"
+        />
+      </div>
+
+      <button class="button" id="sort-button">Sort!</button>
+
+      <span>Output path:</span>
+      <br />
+      <em id="folder-output-path-text"></em>
+    </div>
   </body>
 </html>

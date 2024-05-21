@@ -1,4 +1,5 @@
-import { app, BrowserWindow, Menu } from "electron";
+const { app, BrowserWindow, Menu } = require("electron");
+const path = require("path");
 
 const isDev = process.env.NODE_ENV !== "production";
 const isMac = process.platform === "darwin";
@@ -8,6 +9,11 @@ const createMainWindow = () => {
     title: "Photo Sorter",
     width: isDev ? 1050 : 600,
     height: 800,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
   });
 
   // Open dev tools in development mode
@@ -15,7 +21,7 @@ const createMainWindow = () => {
     mainWindow.webContents.openDevTools();
   }
 
-  mainWindow.loadFile("./renderer/index.html");
+  mainWindow.loadFile(path.join(__dirname, "./renderer/index.html"));
 };
 
 const createAboutWindow = () => {
@@ -25,7 +31,7 @@ const createAboutWindow = () => {
     height: 280,
   });
 
-  mainWindow.loadFile("./renderer/about.html");
+  mainWindow.loadFile(path.join(__dirname, "./renderer/about.html"));
 };
 
 app.whenReady().then(() => {

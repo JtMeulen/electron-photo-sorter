@@ -48,6 +48,10 @@ button, input {
     font-size: 18px;
 }
 
+#form-container {
+    width: clamp(100px, 50%, 340px);
+}
+
 .svg-button {
     margin-bottom: 18px;
 }
@@ -59,8 +63,8 @@ button, input {
 
 .input-wrapper {
     position: relative;
-    width: clamp(100px, 50%, 340px);
-    margin-bottom: 18px;
+    width: 100%;
+    margin: 30px 0;
 }
 
 .input-wrapper img {
@@ -95,8 +99,8 @@ button, input {
     background-color: var(--button-color);
     color: var(--button-color-text);
     cursor: pointer;
-    width: clamp(100px, 50%, 340px);
-    margin-bottom: 18px;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
 .button:hover {
