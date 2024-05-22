@@ -1,7 +1,7 @@
 {
   "name": "electron-photo-sorter",
   "productName": "Photo Sorter",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "App to sort photos based on their date",
   "main": "main.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "@electron-forge/maker-zip": "^7.4.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "electron": "^30.0.6"
   },
@@ -27,5 +28,20 @@
     "exifreader": "^4.23.1",
     "glob": "^10.3.16",
     "toastify-js": "^1.12.0"
+  },
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "Joey ter Meulen",
+              "name": "electron-photo-sorter"
+            }
+          }
+        }
+      ]
+    }
   }
 }
