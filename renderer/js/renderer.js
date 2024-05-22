@@ -5,8 +5,6 @@ const folderOutputPathText = document.getElementById("folder-output-path-text");
 const startDateInp = document.getElementById("start-date-input");
 const sortBtn = document.getElementById("sort-button");
 
-const IMAGE_FILE_EXTENSIONS = "jpg,jpeg,png,heic,heif";
-
 let folderPath;
 let folderOutputPath;
 
@@ -32,10 +30,7 @@ selectFolderBtn.addEventListener("click", async () => {
 sortBtn.addEventListener("click", async () => {
   sortBtn.disabled = true;
 
-  const images = [];
   let startDate;
-
-  // https://github.com/JtMeulen/image_sort/blob/main/index.js
 
   // Get the start date if set in the input field
   if (startDateInp.value) {
@@ -51,31 +46,10 @@ sortBtn.addEventListener("click", async () => {
   // TODO: Temp for testing!
   folderPath = path.join(os.homedir(), "/Documents/uganda");
 
-  const files = await glob.find(
-    `${folderPath}/**/*.{${IMAGE_FILE_EXTENSIONS}}`
-  );
-
-  console.log(files);
-  // start sorting
-
-  console.log("Extracting image dates..");
-  for (const file of files) {
-    const tags = await ExifReader.load(file);
-    console.log("read file: " + file);
-    const imageDateRaw = tags["DateTimeOriginal"].description;
-
-    // Convert YYYY:MM:DD to YYYY-MM-DD for JS Date compatibility
-    const imageDate = imageDateRaw.replace(
-      /(\d{4}):(\d{2}):(\d{2})/,
-      "$1-$2-$3"
-    );
-
-    images.push({ file, date: imageDate });
-  }
-
-  // Sort the array oldest to newest
-  console.log("Sorting images from oldest to newest..");
-  images.sort((a, b) => {
-    return new Date(a.date) - new Date(b.date);
+  // Send to main using ipcRenderer
+  ipcRenderer.send("sort:images", {
+    folderPath,
+    folderOutputPath,
+    startDate
   });
 });
