@@ -9,3 +9,6 @@
   - [ ] Open folder at the end of the script
 - [ ] Toasts
 - [ ] Progress bar for steps
+- [ ] Build project in github ci 
+  - --platform win32
+  - --platform darwin
