@@ -25,6 +25,7 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
     "exifreader": "^4.23.1",
-    "glob": "^10.3.16"
+    "glob": "^10.3.16",
+    "toastify-js": "^1.12.0"
   }
 }
