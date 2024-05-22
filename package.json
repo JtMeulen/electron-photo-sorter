@@ -36,9 +36,7 @@
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "electron_photo_sorter"
-          }
+          "config": {}
         },
         {
           "name": "@electron-forge/maker-zip",
@@ -60,7 +58,7 @@
           "name": "@electron-forge/publisher-github",
           "config": {
             "repository": {
-              "owner": "Joey ter Meulen",
+              "owner": "JtMeulen",
               "name": "electron-photo-sorter"
             }
           }
