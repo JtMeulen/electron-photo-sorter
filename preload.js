@@ -16,3 +16,7 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
   on: (channel, func) =>
     ipcRenderer.on(channel, (event, ...args) => func(...args)),
 });
+
+contextBridge.exposeInMainWorld("dialog", {
+  selectFolder: () => ipcRenderer.invoke("dialog:openDirectory"),
+});

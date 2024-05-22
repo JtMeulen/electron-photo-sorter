@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain } = require("electron");
+const { app, BrowserWindow, Menu, dialog, ipcMain } = require("electron");
 const path = require("path");
 const ExifReader = require("exifreader");
 const { glob } = require("glob");
@@ -25,6 +25,17 @@ const createMainWindow = () => {
   }
 
   mainWindow.loadFile(path.join(__dirname, "./renderer/index.html"));
+
+  ipcMain.handle("dialog:openDirectory", async () => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+      properties: ["openDirectory"],
+    });
+    if (canceled) {
+      return;
+    } else {
+      return filePaths[0];
+    }
+  });
 };
 
 const createAboutWindow = () => {
@@ -124,6 +135,7 @@ ipcMain.on("sort:images", async (e, data) => {
 
   let currentDay = 1;
   // If user input is provided we use that
+  console.log(startDate)
   let currentDate = startDate
     ? getFullDate(startDate)
     : getFullDate(images[0].date);
@@ -155,6 +167,9 @@ ipcMain.on("sort:images", async (e, data) => {
       `${folderOutputPath}/Day ${currentDay}/${filename}`
     );
   }
+
+  console.log("Done!");
+  // TODO: send event to say the script is done!
 });
 
 const getFullDate = (date) => {

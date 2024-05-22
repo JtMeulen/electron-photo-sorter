@@ -9,33 +9,28 @@ let folderPath;
 let folderOutputPath;
 
 selectFolderBtn.addEventListener("click", async () => {
-  // https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker
+  const selectedFolder = await dialog.selectFolder();
+  if (!selectedFolder) return;
 
-  // https://stackoverflow.com/questions/36152857/how-to-get-folder-path-using-electron
-  // TODO: Need to get full folder path (ipcRenderer instead?)
-  //   const dirHandle = await window.showDirectoryPicker();
-
-  //   if (!dirHandle) {
-  //     return;
-  //   }
-
+  // TODO: append name of folder to the folderOutputPath
   folderOutputPath = path.join(os.homedir(), "sorted-images");
 
   formContainer.style.visibility = "visible";
 
-  folderPathText.innerText = "hello";
+  folderPathText.innerText = selectedFolder;
   folderOutputPathText.innerText = folderOutputPath;
 });
 
 sortBtn.addEventListener("click", async () => {
   sortBtn.disabled = true;
+  startDateInp.disabled = true;
 
   let startDate;
 
   // Get the start date if set in the input field
   if (startDateInp.value) {
     // Check if the date is valid, or else throw error
-    if (new Date(startDateInp.value) !== "Invalid Date") {
+    if (new Date(startDateInp.value) === "Invalid Date") {
       // TODO: throw error
       // TODO: empty input field?
     } else {
@@ -50,6 +45,6 @@ sortBtn.addEventListener("click", async () => {
   ipcRenderer.send("sort:images", {
     folderPath,
     folderOutputPath,
-    startDate
+    startDate,
   });
 });
