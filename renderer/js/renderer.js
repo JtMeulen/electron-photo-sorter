@@ -4,50 +4,78 @@ const folderPathText = document.getElementById("folder-path-text");
 const folderOutputPathText = document.getElementById("folder-output-path-text");
 const startDateInp = document.getElementById("start-date-input");
 const sortBtn = document.getElementById("sort-button");
+const progressContainer = document.getElementById("progress");
+const progressText = document.getElementById("progress-text");
+const progressBar = document.getElementById("progress-bar");
+const progressBarFill = document.getElementById("progress-bar-fill");
 
 let folderPath;
 let folderOutputPath;
 
 selectFolderBtn.addEventListener("click", async () => {
-  selectFolderBtn.disabled = true;
-  const selectedFolder = await dialog.selectFolder();
-  selectFolderBtn.disabled = false;
+	selectFolderBtn.disabled = true;
+	folderPath = await dialog.selectFolder();
+	selectFolderBtn.disabled = false;
 
-  if (!selectedFolder) return;
+	if (!folderPath) return;
 
-  // TODO: append name of folder to the folderOutputPath
-  folderOutputPath = path.join(os.homedir(), "sorted-images");
+	// TODO: append name of folder to the folderOutputPath
+	folderOutputPath = path.join(os.homedir(), "sorted-images");
 
-  formContainer.style.visibility = "visible";
+	formContainer.style.visibility = "visible";
 
-  folderPathText.innerText = selectedFolder;
-  folderOutputPathText.innerText = folderOutputPath;
+	folderPathText.innerText = folderPath;
+	folderOutputPathText.innerText = folderOutputPath;
 });
 
 sortBtn.addEventListener("click", async () => {
-  sortBtn.disabled = true;
-  startDateInp.disabled = true;
+	sortBtn.disabled = true;
+	startDateInp.disabled = true;
 
-  let startDate;
+	let startDate;
 
-  // Get the start date if set in the input field
-  if (startDateInp.value) {
-    // Check if the date is valid, or else throw error
-    if (new Date(startDateInp.value) === "Invalid Date") {
-      // TODO: throw error
-      // TODO: empty input field?
-    } else {
-      startDate = new Date(startDateInp.value);
-    }
-  }
+	// Get the start date if set in the input field
+	if (startDateInp.value) {
+		// Check if the date is valid, or else throw error
+		if (new Date(startDateInp.value) === "Invalid Date") {
+			// TODO: throw error
+			// TODO: empty input field?
+		} else {
+			startDate = new Date(startDateInp.value);
+		}
+	}
 
-  // TODO: Temp for testing!
-  folderPath = path.join(os.homedir(), "/Documents/uganda");
+	// Send to main using ipcRenderer
+	ipcRenderer.send("sort:images", {
+		folderPath,
+		folderOutputPath,
+		startDate,
+	});
+});
 
-  // Send to main using ipcRenderer
-  ipcRenderer.send("sort:images", {
-    folderPath,
-    folderOutputPath,
-    startDate,
-  });
+// Handle progress bar
+ipcRenderer.on("progress:data", (data) => {
+	progressContainer.style.visibility = "visible";
+	progressText.innerText = data.step;
+	progressBarFill.style.width = `${data.progress}%`;
+});
+
+ipcRenderer.on("progress:done", () => {
+	// Show toast
+
+	// Reset form
+	folderPath = "";
+	folderOutputPath = "";
+
+	formContainer.style.visibility = "hidden";
+	progressContainer.style.visibility = "hidden";
+
+	sortBtn.disabled = false;
+	startDateInp.disabled = false;
+
+	startDateInp.value = "";
+	folderPathText.innerText = "";
+	folderOutputPathText.innerText = "";
+	progressText.innerText = "";
+	progressBarFill.style.width = "0";
 });

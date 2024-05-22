@@ -1,55 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <!-- unsafe-inline used for google fonts -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="script-src 'self' 'unsafe-inline'"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/renderer.js" defer></script>
-    <title>Photo Sorter</title>
-  </head>
-  <body>
-    <h1>Sort your photos here!</h1>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+		<!-- unsafe-inline used for google fonts -->
+		<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/renderer.js" defer></script>
+		<title>Photo Sorter</title>
+	</head>
+	<body>
+		<h1>Sort your photos here!</h1>
 
-    <button class="svg-button" id="select-folder-button">
-      <img src="images/folder.svg" alt="Select folder" />
-    </button>
+		<button class="svg-button" id="select-folder-button">
+			<img src="images/folder.svg" alt="Select folder" />
+		</button>
 
-    <!-- Details for sorting, only show when folder is selected -->
-    <div style="visibility: hidden;" id="form-container">
-      <span>Sort photos for:</span>
-      <br />
-      <em id="folder-path-text"></em>
+		<!-- Details for sorting, only show when folder is selected -->
+		<div style="visibility: hidden" id="form-container">
+			<span>Sort photos for:</span>
+			<br />
+			<em id="folder-path-text"></em>
 
-      <div class="input-wrapper">
-        <label for="startDate">Start Date (optional):</label>
-        <img src="images/calendar.svg" alt="" />
-        <!-- Input to insert start date MM-DD-YYYY -->
-        <input
-          type="text"
-          id="start-date-input"
-          placeholder="MM-DD-YYYY"
-          class="input"
-          maxlength="10"
-        />
-      </div>
+			<div class="input-wrapper">
+				<label for="startDate">Start Date (optional):</label>
+				<img src="images/calendar.svg" alt="" />
+				<!-- Input to insert start date MM-DD-YYYY -->
+				<input type="text" id="start-date-input" placeholder="MM-DD-YYYY" class="input" maxlength="10" />
+			</div>
 
-      <button class="button" id="sort-button">Sort!</button>
+			<button class="button" id="sort-button">Sort!</button>
 
-      <span>Output path:</span>
-      <br />
-      <em id="folder-output-path-text"></em>
-    </div>
-  </body>
+			<span>Output path:</span>
+			<br />
+			<em id="folder-output-path-text"></em>
+
+			<div id="progress" style="visibility: hidden">
+				<span id="progress-text"></span>
+				<div id="progress-bar">
+					<div id="progress-bar-fill"></div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
