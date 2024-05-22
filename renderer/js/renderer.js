@@ -37,9 +37,12 @@ sortBtn.addEventListener("click", async () => {
 	// Get the start date if set in the input field
 	if (startDateInp.value) {
 		// Check if the date is valid, or else throw error
-		if (new Date(startDateInp.value) === "Invalid Date") {
-			// TODO: throw error
-			// TODO: empty input field?
+		if (new Date(startDateInp.value) === "Invalid Date" || isNaN(new Date(startDateInp.value))) {
+			showToast("Invalid date type", "error");
+			sortBtn.disabled = false;
+			startDateInp.disabled = false;
+			startDateInp.value = "";
+			return;
 		} else {
 			startDate = new Date(startDateInp.value);
 		}
@@ -61,7 +64,7 @@ ipcRenderer.on("progress:data", (data) => {
 });
 
 ipcRenderer.on("progress:done", () => {
-	// Show toast
+	showToast("Images sorted successfully", "success");
 
 	// Reset form
 	folderPath = "";
@@ -79,3 +82,13 @@ ipcRenderer.on("progress:done", () => {
 	progressText.innerText = "";
 	progressBarFill.style.width = "0";
 });
+
+const showToast = (message, type) => {
+	Toastify.toast({
+		className: `toast-${type}`,
+		text: message,
+		close: false,
+		position: "top",
+		duration: 2000,
+	});
+};

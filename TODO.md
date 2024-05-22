@@ -4,7 +4,6 @@
 - Create logo
 - Setup theming
 - Option to change output path
-- Error handling of date-input
-- Handling end of script
-  - Open folder at the end of the script
-- Toasts
+- Add help section in menu
+- Add preferences tab in menu
+- Split JS files
