@@ -1,19 +1,39 @@
+name: Build packages
 on: push
+
 jobs:
-  build-packages:
+  build_on_linux:
     runs-on: ubuntu-latest
-    container: node:18
     steps:
-      - run: node --version
-      - run: npm --version
-      - uses: actions/checkout@v3
-      - run: npm install
-      - run: npm run make -- --platform darwin
-      # log changed files
-      - run: git diff --name-only HEAD^
-      # stage and commit changed files
-      - name: Stage changed files
-        run: git add .
-      - name: Commit changed files
-        run: git commit -m "Generated build"
-      
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@master
+      with:
+        node-version: 18
+    - name: install dependencies
+      run: npm install
+    - name: build
+      run: npm run make
+
+  build_on_mac:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@master
+      with:
+        node-version: 18
+    - name: install dependencies
+      run: npm install
+    - name: build
+      run: npm run make
+
+  build_on_win:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@master
+      with:
+        node-version: 18
+    - name: install dependencies
+      run: npm install
+    - name: build
+      run: npm run make
