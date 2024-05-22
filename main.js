@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, dialog, ipcMain } = require("electron");
+const { app, BrowserWindow, Menu, dialog, ipcMain, shell } = require("electron");
 const path = require("path");
 const ExifReader = require("exifreader");
 const { glob } = require("glob");
@@ -169,6 +169,10 @@ ipcMain.on("sort:images", async (e, data) => {
   }
 
   console.log("Done!");
+
+  // Open the output folder
+  shell.openPath(folderOutputPath);
+
   // TODO: send event to say the script is done!
 });
 

@@ -9,7 +9,10 @@ let folderPath;
 let folderOutputPath;
 
 selectFolderBtn.addEventListener("click", async () => {
+  selectFolderBtn.disabled = true;
   const selectedFolder = await dialog.selectFolder();
+  selectFolderBtn.disabled = false;
+
   if (!selectedFolder) return;
 
   // TODO: append name of folder to the folderOutputPath

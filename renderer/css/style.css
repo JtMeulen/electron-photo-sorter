@@ -38,6 +38,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     color: var(--font-color);
+    
 }
 
 /* Reset styles */
@@ -46,6 +47,11 @@ button, input {
     border: none;
     font-family: inherit;
     font-size: 18px;
+}
+
+#folder-path-text,
+#folder-output-path-text {
+    word-wrap: break-word;
 }
 
 #form-container {
